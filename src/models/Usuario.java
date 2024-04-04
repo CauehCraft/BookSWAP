@@ -4,18 +4,32 @@ import java.util.ArrayList;
 
 public class Usuario {
     private int id;
+    private boolean signIn;
     private String nome;
     private String email;
     private String senha;
     private ArrayList<Livro> livros;
+    private ArrayList<Livro> livrosDeBiblioteca;
+    private ArrayList<String> caixaDeMensagens;
 
     public Usuario(int id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.signIn = false;
 
         livros = new ArrayList<>();
+        livrosDeBiblioteca = new ArrayList<>();
+        caixaDeMensagens = new ArrayList<>();
+    }
+
+    public ArrayList<String> getCaixaDeMensagens() {
+        return caixaDeMensagens;
+    }
+
+    public void setCaixaDeMensagens(String mensagem) {
+        this.caixaDeMensagens.add(mensagem);
     }
 
     public int getId() {
@@ -24,6 +38,14 @@ public class Usuario {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isSignIn() {
+        return signIn;
+    }
+
+    public void setSignIn(boolean signIn) {
+        this.signIn = signIn;
     }
 
     public String getNome() {
@@ -56,6 +78,14 @@ public class Usuario {
 
     public void setLivros(Livro livro) {
         this.livros.add(livro);
+    }
+
+    public ArrayList<Livro> getLivrosDeBiblioteca() {
+        return livrosDeBiblioteca;
+    }
+
+    public void setLivrosDeBiblioteca(Livro livrosDeBiblioteca) {
+        this.livrosDeBiblioteca.add(livrosDeBiblioteca);
     }
 
     @Override

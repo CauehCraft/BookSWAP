@@ -5,12 +5,14 @@ public class Livro {
     private String titulo;
     private String autor;
     private int edicao;
+    private boolean estaDisponivel;
 
     public Livro(int id, String titulo, String autor, int edicao) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.edicao = edicao;
+        this.estaDisponivel = true;
     }
 
     public int getId() {
@@ -45,9 +47,18 @@ public class Livro {
         this.edicao = edicao;
     }
 
+    public boolean isEstaDisponivel() {
+        return estaDisponivel;
+    }
+
+    public void setEstaDisponivel(boolean estaDisponivel) {
+        this.estaDisponivel = estaDisponivel;
+    }
+
     @Override
     public String toString() {
-        return "id: " + id + ", titulo: " + titulo + ", autor: " + autor + ", edicao: " + edicao;
+        return "id: " + id + ", titulo: " + titulo + ", autor: " + autor + ", edicao: " + edicao + ", status: "
+                + (estaDisponivel ? "diponível" : "não disponível");
     }
 
 }
