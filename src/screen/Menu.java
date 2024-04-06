@@ -1,6 +1,7 @@
 package screen;
 
 import java.util.Scanner;
+import java.util.Random;
 
 import models.Biblioteca;
 import models.Livro;
@@ -8,14 +9,20 @@ import models.Usuario;
 
 public class Menu {
     public static void displayMenu(Scanner input, Usuario usuario, Biblioteca biblioteca) {
+        Random random = new Random();
+        String titulo;
+        String autor;
+        int edicao;
+        int meuLivro; // id do meu livro
+        int livroDesejado; // id do livro que eu quero
         int opcao = 0;
 
         do {
             System.out.println("1. Listar livros disponíveis na biblioteca");
-            System.out.println("2. Realizar troca de livro(s) na biblioteca");
+            System.out.println("2. Solicitar troca de livro(s) na biblioteca");
             System.out.println("3. Adicionar livro à biblioteca");
             System.out.println("4. Visualizar meus livros");
-            System.out.println("5. Visualizar mensagens");
+            System.out.println("5. Visualizar Caixa de mensagens");
             System.out.println("6. Visualizar trocas de livros ativas");
             System.out.println("7. Sair");
             System.out.print("informe sua opção: ");
@@ -29,14 +36,20 @@ public class Menu {
                     break;
 
                 case 2:
-                    System.out.println("\nrealizando troca de livro na biblioteca...");
+                    System.out.println("\nsolicitando troca de livro na biblioteca...");
+
+                    System.out.println("Informe o id do livro desejado: ");
+                    livroDesejado = Integer.parseInt(input.nextLine());
+
+                    System.out.println("informe o id do seu livro a ser trocado: ");
+                    meuLivro = Integer.parseInt(input.nextLine());
+
+                    biblioteca.solicitarTroca(livroDesejado, meuLivro, usuario.getNome());
+
                     break;
 
                 case 3:
                     System.out.println("\nadicionando livro à biblioteca...");
-                    String titulo;
-                    String autor;
-                    int edicao;
 
                     System.out.print("Informe o titulo do livro: ");
                     titulo = input.nextLine();
@@ -45,7 +58,7 @@ public class Menu {
                     System.out.print("Informe o ano de edição do livro: ");
                     edicao = Integer.parseInt(input.nextLine());
 
-                    Livro livroDoUsuario = new Livro(1, titulo, autor, edicao);
+                    Livro livroDoUsuario = new Livro(random.nextInt(30), titulo, autor, edicao);
 
                     usuario.setLivros(livroDoUsuario);
 
