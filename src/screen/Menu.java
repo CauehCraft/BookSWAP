@@ -16,6 +16,7 @@ public class Menu {
         int meuLivro; // id do meu livro
         int livroDesejado; // id do livro que eu quero
         int opcao = 0;
+        int escolha = 0;
 
         do {
             System.out.println("1. Listar livros disponíveis na biblioteca");
@@ -23,7 +24,7 @@ public class Menu {
             System.out.println("3. Adicionar livro à biblioteca");
             System.out.println("4. Visualizar meus livros");
             System.out.println("5. Visualizar Caixa de mensagens");
-            System.out.println("6. Visualizar trocas de livros ativas");
+            System.out.println("6. Realizar troca de livro");
             System.out.println("7. Sair");
             System.out.print("informe sua opção: ");
 
@@ -38,13 +39,13 @@ public class Menu {
                 case 2:
                     System.out.println("\nsolicitando troca de livro na biblioteca...");
 
-                    System.out.println("Informe o id do livro desejado: ");
+                    System.out.print("Informe o id do livro desejado: ");
                     livroDesejado = Integer.parseInt(input.nextLine());
 
-                    System.out.println("informe o id do seu livro a ser trocado: ");
+                    System.out.print("informe o id do seu livro a ser trocado: ");
                     meuLivro = Integer.parseInt(input.nextLine());
 
-                    biblioteca.solicitarTroca(livroDesejado, meuLivro, usuario.getNome());
+                    biblioteca.solicitarTroca(livroDesejado, meuLivro, usuario);
 
                     break;
 
@@ -64,6 +65,7 @@ public class Menu {
 
                     System.out.println("Livro cadastrado com sucesso!\n");
                     break;
+
                 case 4:
                     System.out.println("\nvisualizando seus livros...");
                     if (usuario.getLivros().isEmpty()) {
@@ -83,10 +85,16 @@ public class Menu {
                     break;
 
                 case 6:
-                    System.out.println("\nvisualizando trocas de livros ativas...");
-                    for (Livro livro : usuario.getLivrosDeBiblioteca()) {
-                        System.out.println(livro);
-                    }
+                    System.out.println("\nrealizando troca de livros...");
+
+                    biblioteca.mostrarSolicitacoesDeTrocas(usuario);
+                    System.out.print("\nselecione sua opção de troca: ");
+                    escolha = Integer.parseInt(input.nextLine());
+
+                    biblioteca.realizarTroca(usuario, escolha);
+
+                    System.out.println("troca bem feita");
+
                     break;
 
                 case 7:

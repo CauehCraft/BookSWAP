@@ -9,7 +9,7 @@ public class Usuario {
     private String email;
     private String senha;
     private ArrayList<Livro> livros;
-    private ArrayList<Livro> livrosDeBiblioteca;
+    private ArrayList<Livro> livrosDeBiblioteca; // troca l1--l2
     private ArrayList<String> caixaDeMensagens;
 
     public Usuario(int id, String nome, String email, String senha) {
