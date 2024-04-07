@@ -30,7 +30,7 @@ public class LoginCadastro {
                     senha = input.nextLine();
 
                     if (usuarioExiste(email, senha, usuarios)) {
-                        System.out.println("usuário encontrado! Entrando no programa....");
+                        System.out.println("\nusuário encontrado! Entrando no programa...\n");
                         DemoApp.usuarioLogged.setSignIn(true);
 
                         return;

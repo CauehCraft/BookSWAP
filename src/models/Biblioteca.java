@@ -48,6 +48,9 @@ public class Biblioteca implements TrocaDeLivros {
                 usuarioNormal.setLivrosDeBiblioteca(livroDestino);
                 usuarioNormal.setLivrosDeBiblioteca(livroOrigem);
 
+                System.out.println("Sua mensagem de solicitação foi enviada para " + usuarioNormal.getNome()
+                        + ". Aguarde pelo confirmação!");
+
                 break;
             }
         }
@@ -57,11 +60,12 @@ public class Biblioteca implements TrocaDeLivros {
         for (int i = 0; i < usuarioNormal.getLivrosDeBiblioteca().size(); i++) {
             if (i == 0 || i % 2 == 0) {
                 System.out.print((i + 1) + ". ");
+                System.out.print(usuarioNormal.getLivrosDeBiblioteca().get(i).getTitulo());
             } else {
                 System.out.print("<->");
+                System.out.println(usuarioNormal.getLivrosDeBiblioteca().get(i).getTitulo());
+
             }
-            System.out.print(usuarioNormal.getLivrosDeBiblioteca().get(i).getTitulo());
-            // System.out.println();
         }
     }
 

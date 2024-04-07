@@ -1,15 +1,14 @@
 package screen;
 
 import java.util.Scanner;
-import java.util.Random;
 
 import models.Biblioteca;
 import models.Livro;
 import models.Usuario;
+import test.DemoApp;
 
 public class Menu {
     public static void displayMenu(Scanner input, Usuario usuario, Biblioteca biblioteca) {
-        Random random = new Random();
         String titulo;
         String autor;
         int edicao;
@@ -59,11 +58,12 @@ public class Menu {
                     System.out.print("Informe o ano de edição do livro: ");
                     edicao = Integer.parseInt(input.nextLine());
 
-                    Livro livroDoUsuario = new Livro(random.nextInt(30), titulo, autor, edicao);
+                    Livro livroDoUsuario = new Livro(++DemoApp.idLivro, titulo, autor, edicao);
 
                     usuario.setLivros(livroDoUsuario);
 
-                    System.out.println("Livro cadastrado com sucesso!\n");
+                    System.out.println("\nLivro cadastrado com sucesso!\n");
+
                     break;
 
                 case 4:
@@ -75,6 +75,7 @@ public class Menu {
                             System.out.println(livro);
                         }
                     }
+
                     break;
 
                 case 5:
@@ -82,6 +83,7 @@ public class Menu {
                     for (String mensagem : usuario.getCaixaDeMensagens()) {
                         System.out.println(mensagem);
                     }
+                    System.out.println();
                     break;
 
                 case 6:
@@ -93,13 +95,14 @@ public class Menu {
 
                     biblioteca.realizarTroca(usuario, escolha);
 
-                    System.out.println("troca bem feita");
+                    System.out.println("Sua troca foi confirmada!\n");
 
                     break;
 
                 case 7:
                     System.out.println("\nsaindo da conta...");
                     usuario.setSignIn(false);
+
                     break;
 
                 default:
