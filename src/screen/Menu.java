@@ -2,20 +2,20 @@ package screen;
 
 import java.util.Scanner;
 
-import models.Biblioteca;
-import models.Livro;
-import models.Usuario;
+import models.Library;
+import models.Book;
+import models.User;
 import test.DemoApp;
 
 public class Menu {
-    public static void displayMenu(Scanner input, Usuario usuario, Biblioteca biblioteca) {
-        String titulo;
-        String autor;
-        int edicao;
-        int meuLivro; // id do meu livro
-        int livroDesejado; // id do livro que eu quero
-        int opcao = 0;
-        int escolha = 0;
+    public static void displayMenu(Scanner input, User loggedUser, Library library) {
+        String title;
+        String author;
+        int edition;
+        int idLoggedUserBook;
+        int idNormalUserBook;
+        int menuAction = 0;
+        int option = 0;
 
         do {
             System.out.println("1. Listar livros disponíveis na biblioteca");
@@ -27,24 +27,25 @@ public class Menu {
             System.out.println("7. Sair");
             System.out.print("informe sua opção: ");
 
-            opcao = Integer.parseInt(input.nextLine());
+            menuAction = Integer.parseInt(input.nextLine());
 
-            switch (opcao) {
+            switch (menuAction) {
                 case 1:
                     System.out.println("\nlistando livros da biblioteca...");
-                    biblioteca.listarLivros();
+                    library.showAvailableBooks();
+
                     break;
 
                 case 2:
                     System.out.println("\nsolicitando troca de livro na biblioteca...");
 
                     System.out.print("Informe o id do livro desejado: ");
-                    livroDesejado = Integer.parseInt(input.nextLine());
+                    idNormalUserBook = Integer.parseInt(input.nextLine());
 
                     System.out.print("informe o id do seu livro a ser trocado: ");
-                    meuLivro = Integer.parseInt(input.nextLine());
+                    idLoggedUserBook = Integer.parseInt(input.nextLine());
 
-                    biblioteca.solicitarTroca(livroDesejado, meuLivro, usuario);
+                    library.requestExchange(idNormalUserBook, idLoggedUserBook, loggedUser);
 
                     break;
 
@@ -52,15 +53,17 @@ public class Menu {
                     System.out.println("\nadicionando livro à biblioteca...");
 
                     System.out.print("Informe o titulo do livro: ");
-                    titulo = input.nextLine();
+                    title = input.nextLine();
+
                     System.out.print("Informe o autor do livro: ");
-                    autor = input.nextLine();
+                    author = input.nextLine();
+
                     System.out.print("Informe o ano de edição do livro: ");
-                    edicao = Integer.parseInt(input.nextLine());
+                    edition = Integer.parseInt(input.nextLine());
 
-                    Livro livroDoUsuario = new Livro(++DemoApp.idLivro, titulo, autor, edicao);
+                    Book loggedUserBook = new Book(++DemoApp.idBook, title, author, edition);
 
-                    usuario.setLivros(livroDoUsuario);
+                    loggedUser.setLivros(loggedUserBook);
 
                     System.out.println("\nLivro cadastrado com sucesso!\n");
 
@@ -68,10 +71,11 @@ public class Menu {
 
                 case 4:
                     System.out.println("\nvisualizando seus livros...");
-                    if (usuario.getLivros().isEmpty()) {
+
+                    if (loggedUser.getBooks().isEmpty()) {
                         System.out.println("Você não possui livros cadastrados!");
                     } else {
-                        for (Livro livro : usuario.getLivros()) {
+                        for (Book livro : loggedUser.getBooks()) {
                             System.out.println(livro);
                         }
                     }
@@ -80,20 +84,23 @@ public class Menu {
 
                 case 5:
                     System.out.println("\nvisualizando sua caixa de mensagens...");
-                    for (String mensagem : usuario.getCaixaDeMensagens()) {
-                        System.out.println(mensagem);
+
+                    for (String message : loggedUser.getMailbox()) {
+                        System.out.println(message);
                     }
+
                     System.out.println();
                     break;
 
                 case 6:
                     System.out.println("\nrealizando troca de livros...");
 
-                    biblioteca.mostrarSolicitacoesDeTrocas(usuario);
+                    library.showRequestExchanges(loggedUser);
                     System.out.print("\nselecione sua opção de troca: ");
-                    escolha = Integer.parseInt(input.nextLine());
 
-                    biblioteca.realizarTroca(usuario, escolha);
+                    option = Integer.parseInt(input.nextLine());
+
+                    library.exchangeBook(loggedUser, option);
 
                     System.out.println("Sua troca foi confirmada!\n");
 
@@ -101,14 +108,15 @@ public class Menu {
 
                 case 7:
                     System.out.println("\nsaindo da conta...");
-                    usuario.setSignIn(false);
+
+                    loggedUser.setSignIn(false);
 
                     break;
 
                 default:
                     break;
             }
-        } while (opcao != 7);
+        } while (menuAction != 7);
 
     }
 }

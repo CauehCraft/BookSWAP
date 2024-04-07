@@ -3,14 +3,14 @@ package screen;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import models.Usuario;
+import models.User;
 import test.DemoApp;
 
 public class LoginCadastro {
-    public static void displayLoginCadastro(Scanner input, ArrayList<Usuario> usuarios) {
+    public static void displayLoginCadastro(Scanner input, ArrayList<User> users) {
         String email;
-        String senha;
-        int opcao;
+        String password;
+        int option;
 
         do {
             System.out.println("Bem-vindo(a) ao BookSwap!");
@@ -18,20 +18,20 @@ public class LoginCadastro {
             System.out.println("2. Cadastre-se");
             System.out.println("3. Sair do programa");
             System.out.print("Informe sua opção: ");
-            opcao = Integer.parseInt(input.nextLine());
+            option = Integer.parseInt(input.nextLine());
 
-            switch (opcao) {
+            switch (option) {
                 case 1:
                     System.out.println("\nfazendo loggin...");
 
                     System.out.print("Informe seu email: ");
                     email = input.nextLine();
                     System.out.print("Informe sua senha: ");
-                    senha = input.nextLine();
+                    password = input.nextLine();
 
-                    if (usuarioExiste(email, senha, usuarios)) {
+                    if (areThereUser(email, password, users)) {
                         System.out.println("\nusuário encontrado! Entrando no programa...\n");
-                        DemoApp.usuarioLogged.setSignIn(true);
+                        DemoApp.loggedUser.setSignIn(true);
 
                         return;
                     }
@@ -41,17 +41,20 @@ public class LoginCadastro {
                 case 2:
                     System.out.println("\nfazendo cadastro na plataforma...");
 
-                    String nome;
+                    String name;
+
                     System.out.print("Informe seu nome: ");
-                    nome = input.nextLine();
+                    name = input.nextLine();
+
                     System.out.print("Informe seu email: ");
                     email = input.nextLine();
+
                     System.out.print("Informe sua senha: ");
-                    senha = input.nextLine();
+                    password = input.nextLine();
 
-                    Usuario usuario = new Usuario(1, nome, email, senha);
+                    User user = new User(1, name, email, password);
 
-                    usuarios.add(usuario);
+                    users.add(user);
 
                     System.out.println("usuário criado com sucesso!\n");
 
@@ -59,21 +62,21 @@ public class LoginCadastro {
 
                 case 3:
                     System.out.println("encerrando programa...");
-                    DemoApp.programaEstaEncerrado = true;
+                    DemoApp.exitProgram = true;
 
                     break;
                 default:
                     break;
 
             }
-        } while (opcao != 3);
+        } while (option != 3);
 
     }
 
-    public static boolean usuarioExiste(String email, String senha, ArrayList<Usuario> usuarios) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
-                DemoApp.usuarioLogged = usuario;
+    public static boolean areThereUser(String email, String password, ArrayList<User> users) {
+        for (User user : users) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                DemoApp.loggedUser = user;
 
                 return true;
             }
