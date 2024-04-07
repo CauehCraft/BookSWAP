@@ -11,15 +11,17 @@ public class Library implements ExchangeBooks {
         this.users = users;
     }
 
-    public void showAvailableBooks() {
+    public void showAvailableBooks(User loggedUser) {
         for (User user : users) {
-            System.out.println("Usuário: " + user.getName() + ". Livros em posse: ");
-            for (Book livro : user.getBooks()) {
-                if (livro.isAvailable()) {
-                    System.out.println(livro);
+            if (!user.getName().equals(loggedUser.getName())) {
+                for (Book livro : user.getBooks()) {
+                    if (livro.isAvailable()) {
+                        System.out.println(livro);
+                    }
                 }
+
+                System.out.println();
             }
-            System.out.println();
         }
     }
 

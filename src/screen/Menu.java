@@ -32,7 +32,7 @@ public class Menu {
             switch (menuAction) {
                 case 1:
                     System.out.println("\nlistando livros da biblioteca...");
-                    library.showAvailableBooks();
+                    library.showAvailableBooks(loggedUser);
 
                     break;
 
@@ -78,6 +78,7 @@ public class Menu {
                         for (Book livro : loggedUser.getBooks()) {
                             System.out.println(livro);
                         }
+                        System.out.println();
                     }
 
                     break;
