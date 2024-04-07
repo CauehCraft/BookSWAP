@@ -89,6 +89,9 @@ public class Library implements ExchangeBooks {
                 normalUser.setLivros(loggedUserBook);
                 removeBook(normalUser, normalUserBook);
 
+                usuarioLogged.getBookExchangeRequest().remove(normalUserBook);
+                usuarioLogged.getBookExchangeRequest().remove(loggedUserBook);
+
                 break;
             }
         }
