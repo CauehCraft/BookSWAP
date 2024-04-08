@@ -6,8 +6,8 @@ import java.util.Scanner;
 import models.User;
 import test.DemoApp;
 
-public class LoginCadastro {
-    public static void displayLoginCadastro(Scanner input, ArrayList<User> users) {
+public class LoginSignUp {
+    public static void displayLoginSignUp(Scanner input, ArrayList<User> users) {
         String email;
         String password;
         int option;

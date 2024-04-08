@@ -51,8 +51,8 @@ public class Book {
         return available;
     }
 
-    public void setAvailable(boolean estaDisponivel) {
-        this.available = estaDisponivel;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override
