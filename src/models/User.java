@@ -1,8 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import interfaces.Observer;
 
-public class User {
+public class User implements Observer{
     private int id;
     private boolean signIn;
     private String name;
@@ -26,10 +27,6 @@ public class User {
 
     public ArrayList<String> getMailbox() {
         return mailbox;
-    }
-
-    public void setMailbox(String message) {
-        this.mailbox.add(message);
     }
 
     public int getId() {
@@ -86,6 +83,17 @@ public class User {
 
     public void setLibraryBooks(Book libraryBook) {
         this.bookExchangeRequest.add(libraryBook);
+    }
+
+    /* 
+    public void setMailbox(String message) {
+        this.mailbox.add(message);
+    } 
+    */
+
+    @Override
+    public void update(String message) {
+        this.mailbox.add(message);
     }
 
     @Override

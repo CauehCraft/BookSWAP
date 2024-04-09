@@ -3,9 +3,12 @@ package models;
 import java.util.ArrayList;
 
 import interfaces.ExchangeBooks;
+import interfaces.Subject;
+import interfaces.Observer;
 
-public class Library implements ExchangeBooks {
+public class Library implements ExchangeBooks, Subject {
     private ArrayList<User> users;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public Library(ArrayList<User> users) {
         this.users = users;
@@ -43,7 +46,7 @@ public class Library implements ExchangeBooks {
 
         for (User normalUser : users) {
             if (normalUser.getBooks().contains(normalUserBook)) {
-                normalUser.setMailbox(
+                normalUser.update(
                         usuarioLogged.getName() + " deseja trocar o livro " + loggedUserBook.getTitle()
                                 + " com o seu livro " + normalUserBook.getTitle());
 
@@ -52,6 +55,8 @@ public class Library implements ExchangeBooks {
 
                 System.out.println("Sua mensagem de solicitação foi enviada para " + normalUser.getName()
                         + ". Aguarde pelo confirmação!");
+                
+                notifyObserver(normalUser, "Uma troca de livro foi solicitada por " + usuarioLogged.getName());
 
                 break;
             }
@@ -101,6 +106,21 @@ public class Library implements ExchangeBooks {
         int index = user.getBooks().indexOf(book);
 
         user.getBooks().remove(index);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObserver(Observer observer, String message) {
+        observer.update(message);
     }
 
 }

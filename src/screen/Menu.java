@@ -23,7 +23,7 @@ public class Menu {
             System.out.println("3. Adicionar livro à biblioteca");
             System.out.println("4. Visualizar meus livros");
             System.out.println("5. Visualizar Caixa de mensagens");
-            System.out.println("6. Realizar troca de livro");
+            System.out.println("6. Confirmar troca de livro");
             System.out.println("7. Sair");
             System.out.print("informe sua opção: ");
 

@@ -3,11 +3,12 @@ package screen;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import models.Library;
 import models.User;
 import test.DemoApp;
 
 public class LoginSignUp {
-    public static void displayLoginSignUp(Scanner input, ArrayList<User> users) {
+    public static void displayLoginSignUp(Scanner input, ArrayList<User> users, Library library) {
         String email;
         String password;
         int option;
@@ -32,6 +33,7 @@ public class LoginSignUp {
                     if (areThereUser(email, password, users)) {
                         System.out.println("\nusuário encontrado! Entrando no programa...\n");
                         DemoApp.loggedUser.setSignIn(true);
+                        library.registerObserver(DemoApp.loggedUser);
 
                         return;
                     }
