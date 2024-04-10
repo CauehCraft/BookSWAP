@@ -13,8 +13,8 @@ public class LoginSignUp {
         String password;
         int option;
 
+        System.out.println("Bem-vindo(a) ao BookSwap!");
         do {
-            System.out.println("Bem-vindo(a) ao BookSwap!");
             System.out.println("1. Sign In");
             System.out.println("2. Cadastre-se");
             System.out.println("3. Sair do programa");
@@ -36,6 +36,8 @@ public class LoginSignUp {
                         library.registerObserver(DemoApp.loggedUser);
 
                         return;
+                    } else {
+                        System.out.println("\nemail ou senha inválido!\n");
                     }
 
                     break;
@@ -58,7 +60,7 @@ public class LoginSignUp {
 
                     users.add(user);
 
-                    System.out.println("usuário criado com sucesso!\n");
+                    System.out.println("\nusuário criado com sucesso!\n");
 
                     break;
 
