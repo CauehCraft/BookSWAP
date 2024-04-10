@@ -45,7 +45,7 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("\ninforme o id do livro desejado: ");
+                    System.out.print("\ninforme o id do livro desejado: ");
                     idNormalUserBook = Integer.parseInt(input.nextLine());
 
                     System.out.print("informe o id do seu livro a ser trocado: ");

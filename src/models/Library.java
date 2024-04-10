@@ -42,7 +42,18 @@ public class Library implements ExchangeBooks, Subject {
 
     public void requestExchange(int idNormalUserBook, int idLoggedUserBook, User usuarioLogged) {
         Book normalUserBook = searchBook(idNormalUserBook);
+        if (normalUserBook == null) {
+            System.out.println("\nlivro não encontrado!\n");
+
+            return;
+        }
+
         Book loggedUserBook = searchBook(idLoggedUserBook);
+        if(loggedUserBook == null) {
+            System.out.println("\nVocê não possui este livro!\n");
+
+            return;
+        }
 
         for (User normalUser : users) {
             if (normalUser.getBooks().contains(normalUserBook)) {
