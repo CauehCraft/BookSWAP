@@ -37,9 +37,15 @@ public class Menu {
                     break;
 
                 case 2:
-                    System.out.println("\nsolicitando troca de livro na biblioteca...");
+                    System.out.print("\nsolicitando troca de livro na biblioteca...");
 
-                    System.out.print("Informe o id do livro desejado: ");
+                    if (loggedUser.getBooks().isEmpty()) {
+                        System.out.println(" você não possui livros para trocar!\n");
+
+                        break;
+                    }
+
+                    System.out.println("\ninforme o id do livro desejado: ");
                     idNormalUserBook = Integer.parseInt(input.nextLine());
 
                     System.out.print("informe o id do seu livro a ser trocado: ");

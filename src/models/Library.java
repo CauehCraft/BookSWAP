@@ -53,8 +53,8 @@ public class Library implements ExchangeBooks, Subject {
                 normalUser.setLibraryBooks(normalUserBook);
                 normalUser.setLibraryBooks(loggedUserBook);
 
-                System.out.println("Sua mensagem de solicitação foi enviada para " + normalUser.getName()
-                        + ". Aguarde pelo confirmação!");
+                System.out.println("\nSua mensagem de solicitação foi enviada para " + normalUser.getName()
+                        + ". Aguarde pela confirmação!\n");
                 
                 notifyObserver(normalUser, "Uma troca de livro foi solicitada por " + usuarioLogged.getName());
 
@@ -68,7 +68,7 @@ public class Library implements ExchangeBooks, Subject {
         for (int i = 0; i < normalUser.getBookExchangeRequest().size(); i++) {
             count = i;
 
-            if (i == 0 || i % 2 == 0) {
+            if (i % 2 == 0) {
                 System.out.print((count + 1) + ". ");
                 System.out.print(normalUser.getBookExchangeRequest().get(i).getTitle());
             } else {
