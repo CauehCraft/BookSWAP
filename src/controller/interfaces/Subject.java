@@ -1,4 +1,4 @@
-package interfaces;
+package controller.interfaces;
 
 public interface Subject {
     public void registerObserver(Observer observer);

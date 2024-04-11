@@ -1,10 +1,10 @@
-package models;
+package controller;
 
 import java.util.ArrayList;
 
-import interfaces.ExchangeBooks;
-import interfaces.Subject;
-import interfaces.Observer;
+import controller.interfaces.ExchangeBooks;
+import controller.interfaces.Observer;
+import controller.interfaces.Subject;
 
 public class Library implements ExchangeBooks, Subject {
     private ArrayList<User> users;
@@ -90,27 +90,29 @@ public class Library implements ExchangeBooks, Subject {
         }
     }
 
-    public void exchangeBook(User usuarioLogged, int option) {
-        Book loggedUserBook = usuarioLogged.getBookExchangeRequest().get(option - 1);
-        Book normalUserBook = usuarioLogged.getBookExchangeRequest().get(option);
+    public void exchangeBook(User loggedUser, int option) {
+        Book loggedUserBook = loggedUser.getBookExchangeRequest().get(option - 1);
+        Book normalUserBook = loggedUser.getBookExchangeRequest().get(option);
 
         for (User normalUser : users) {
             if (normalUser.getBooks().contains(normalUserBook)) {
                 normalUserBook.setAvailable(false);
                 loggedUserBook.setAvailable(false);
 
-                usuarioLogged.setLivros(normalUserBook);
-                removeBook(usuarioLogged, loggedUserBook);
+                loggedUser.setLivros(normalUserBook);
+                removeBook(loggedUser, loggedUserBook);
 
                 normalUser.setLivros(loggedUserBook);
                 removeBook(normalUser, normalUserBook);
 
-                usuarioLogged.getBookExchangeRequest().remove(normalUserBook);
-                usuarioLogged.getBookExchangeRequest().remove(loggedUserBook);
+                loggedUser.getBookExchangeRequest().remove(normalUserBook);
+                loggedUser.getBookExchangeRequest().remove(loggedUserBook);
 
                 break;
             }
         }
+
+        System.out.println("Sua troca foi confirmada!\n");
     }
 
     public void removeBook(User user, Book book) {

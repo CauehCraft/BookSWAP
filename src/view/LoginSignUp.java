@@ -1,11 +1,10 @@
-package screen;
+package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import models.Library;
-import models.User;
-import test.DemoApp;
+import controller.Library;
+import controller.User;
 
 public class LoginSignUp {
     public static void displayLoginSignUp(Scanner input, ArrayList<User> users, Library library) {
@@ -32,8 +31,8 @@ public class LoginSignUp {
 
                     if (areThereUser(email, password, users)) {
                         System.out.println("\nusuário encontrado! Entrando no programa...\n");
-                        DemoApp.loggedUser.setSignIn(true);
-                        library.registerObserver(DemoApp.loggedUser);
+                        BookSwap.loggedUser.setSignIn(true);
+                        library.registerObserver(BookSwap.loggedUser);
 
                         return;
                     } else {
@@ -66,7 +65,7 @@ public class LoginSignUp {
 
                 case 3:
                     System.out.println("encerrando programa...");
-                    DemoApp.exitProgram = true;
+                    BookSwap.exitProgram = true;
 
                     break;
                 default:
@@ -80,7 +79,7 @@ public class LoginSignUp {
     public static boolean areThereUser(String email, String password, ArrayList<User> users) {
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                DemoApp.loggedUser = user;
+                BookSwap.loggedUser = user;
 
                 return true;
             }

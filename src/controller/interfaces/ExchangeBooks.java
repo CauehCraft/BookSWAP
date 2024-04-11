@@ -1,7 +1,7 @@
-package interfaces;
+package controller.interfaces;
 
-import models.Book;
-import models.User;
+import controller.Book;
+import controller.User;
 
 public interface ExchangeBooks {
     public void requestExchange(int idNormalUserBook, int idLoggedUserBook, User usuarioLogged);

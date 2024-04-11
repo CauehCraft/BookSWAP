@@ -1,9 +1,10 @@
-package models;
+package controller;
 
 import java.util.ArrayList;
-import interfaces.Observer;
 
-public class User implements Observer{
+import controller.interfaces.Observer;
+
+public class User implements Observer {
     private int id;
     private boolean signIn;
     private String name;

@@ -1,4 +1,4 @@
-package models;
+package controller;
 
 public class Book {
     private int id;

@@ -1,11 +1,10 @@
-package screen;
+package view;
 
 import java.util.Scanner;
 
-import models.Library;
-import models.Book;
-import models.User;
-import test.DemoApp;
+import controller.Library;
+import controller.Book;
+import controller.User;
 
 public class Menu {
     public static void displayMenu(Scanner input, User loggedUser, Library library) {
@@ -67,7 +66,7 @@ public class Menu {
                     System.out.print("Informe o ano de edição do livro: ");
                     edition = Integer.parseInt(input.nextLine());
 
-                    Book loggedUserBook = new Book(++DemoApp.idBook, title, author, edition);
+                    Book loggedUserBook = new Book(++BookSwap.idBook, title, author, edition);
 
                     loggedUser.setLivros(loggedUserBook);
 
@@ -79,7 +78,7 @@ public class Menu {
                     System.out.println("\nvisualizando seus livros...");
 
                     if (loggedUser.getBooks().isEmpty()) {
-                        System.out.println("Você não possui livros cadastrados!");
+                        System.out.println("Você não possui livros cadastrados!\n");
                     } else {
                         for (Book livro : loggedUser.getBooks()) {
                             System.out.println(livro);
@@ -100,16 +99,19 @@ public class Menu {
                     break;
 
                 case 6:
-                    System.out.println("\nrealizando troca de livros...");
+                    System.out.print("\nrealizando troca de livros...");
+                    if (loggedUser.getBookExchangeRequest().isEmpty()) {
+                        System.out.println(" não há solicitações de trocas para você!\n");
 
+                        break;
+                    }
+                    System.out.println();
                     library.showRequestExchanges(loggedUser);
                     System.out.print("\nselecione sua opção de troca: ");
 
                     option = Integer.parseInt(input.nextLine());
 
                     library.exchangeBook(loggedUser, option);
-
-                    System.out.println("Sua troca foi confirmada!\n");
 
                     break;
 
