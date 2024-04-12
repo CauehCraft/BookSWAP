@@ -7,8 +7,8 @@ import controller.interfaces.Observer;
 import controller.interfaces.Subject;
 
 public class Library implements ExchangeBooks, Subject {
-    private ArrayList<User> users;
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private final ArrayList<User> users;
+    private final ArrayList<Observer> observers = new ArrayList<>();
 
     public Library(ArrayList<User> users) {
         this.users = users;
@@ -90,23 +90,27 @@ public class Library implements ExchangeBooks, Subject {
         }
     }
 
-    public void exchangeBook(User loggedUser, int option) {
-        Book loggedUserBook = loggedUser.getBookExchangeRequest().get(option - 1);
-        Book normalUserBook = loggedUser.getBookExchangeRequest().get(option);
+    public void exchangeBook(User loggedUser, int chosenBook) {
+        Book loggedUserBook = loggedUser.getBookExchangeRequest().get(chosenBook - 1);
+        Book normalUserBook = loggedUser.getBookExchangeRequest().get(chosenBook);
+        int index;
 
         for (User normalUser : users) {
             if (normalUser.getBooks().contains(normalUserBook)) {
                 normalUserBook.setAvailable(false);
                 loggedUserBook.setAvailable(false);
 
+                while (loggedUser.getBookExchangeRequest().remove(loggedUserBook)) {
+                    index = loggedUser.getBookExchangeRequest().indexOf(loggedUserBook);
+
+                    loggedUser.getBookExchangeRequest().remove(index+1);
+                }
+
                 loggedUser.setLivros(normalUserBook);
                 removeBook(loggedUser, loggedUserBook);
 
                 normalUser.setLivros(loggedUserBook);
                 removeBook(normalUser, normalUserBook);
-
-                loggedUser.getBookExchangeRequest().remove(normalUserBook);
-                loggedUser.getBookExchangeRequest().remove(loggedUserBook);
 
                 break;
             }
@@ -116,9 +120,7 @@ public class Library implements ExchangeBooks, Subject {
     }
 
     public void removeBook(User user, Book book) {
-        int index = user.getBooks().indexOf(book);
-
-        user.getBooks().remove(index);
+        user.getBooks().remove(book);
     }
 
     @Override

@@ -32,6 +32,12 @@ public class BookSwap {
 
         users.add(user);
 
+        user = new User(3, "Pedro", "p@gmail.com", "123");
+        book = new Book(++idBook, "1984", "George Orwell", 2019);
+        user.setLivros((book));
+
+        users.add(user);
+
         library = new Library(users);
 
         while (!exitProgram) {
