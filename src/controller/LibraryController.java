@@ -6,6 +6,7 @@ import controller.interfaces.Subject;
 import model.Book;
 import model.Library;
 import model.User;
+import view.BookSwap;
 
 public class LibraryController implements ExchangeBooks, Subject {
     public void showAvailableBooks(Library library, User loggedUser) {
@@ -55,8 +56,8 @@ public class LibraryController implements ExchangeBooks, Subject {
                         loggedUser.getName() + " deseja trocar o livro " + loggedUserBook.getTitle()
                                 + " com o seu livro " + normalUserBook.getTitle());
 
-                normalUser.setLibraryBooks(normalUserBook);
-                normalUser.setLibraryBooks(loggedUserBook);
+                BookSwap.userController.addLibraryBook(normalUser, normalUserBook);
+                BookSwap.userController.addLibraryBook(normalUser, loggedUserBook);
 
                 System.out.println("\nSua mensagem de solicitação foi enviada para " + normalUser.getName()
                         + ". Aguarde pela confirmação!\n");
@@ -86,10 +87,10 @@ public class LibraryController implements ExchangeBooks, Subject {
                 normalUserBook.setAvailable(false);
                 loggedUserBook.setAvailable(false);
 
-                loggedUser.setLivros(normalUserBook);
+                BookSwap.userController.addBook(loggedUser, normalUserBook);
                 removeBook(loggedUser, loggedUserBook);
 
-                normalUser.setLivros(loggedUserBook);
+                BookSwap.userController.addBook(normalUser, loggedUserBook);
                 removeBook(normalUser, normalUserBook);
 
                 break;

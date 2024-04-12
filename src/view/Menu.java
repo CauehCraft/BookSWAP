@@ -68,7 +68,7 @@ public class Menu {
 
                     Book loggedUserBook = new Book(++BookSwap.idBook, title, author, edition);
 
-                    loggedUser.setLivros(loggedUserBook);
+                    BookSwap.userController.addBook(loggedUser, loggedUserBook);
 
                     System.out.println("\nLivro cadastrado com sucesso!\n");
 
