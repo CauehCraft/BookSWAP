@@ -1,10 +1,10 @@
 package controller;
 
-import java.util.ArrayList;
-
 import controller.interfaces.ExchangeBooks;
 import controller.interfaces.Observer;
 import controller.interfaces.Subject;
+
+import java.util.ArrayList;
 
 public class Library implements ExchangeBooks, Subject {
     private final ArrayList<User> users;
@@ -49,7 +49,7 @@ public class Library implements ExchangeBooks, Subject {
         }
 
         Book loggedUserBook = searchBook(idLoggedUserBook);
-        if(loggedUserBook == null) {
+        if (loggedUserBook == null) {
             System.out.println("\nVocê não possui este livro!\n");
 
             return;
@@ -64,10 +64,8 @@ public class Library implements ExchangeBooks, Subject {
                 normalUser.setLibraryBooks(normalUserBook);
                 normalUser.setLibraryBooks(loggedUserBook);
 
-                System.out.println("\nSua mensagem de solicitação foi enviada para " + normalUser.getName()
+                notifyObserver(normalUser, "\nSua mensagem de solicitação foi enviada para " + normalUser.getName()
                         + ". Aguarde pela confirmação!\n");
-                
-                notifyObserver(normalUser, "Uma troca de livro foi solicitada por " + usuarioLogged.getName());
 
                 break;
             }
@@ -93,18 +91,11 @@ public class Library implements ExchangeBooks, Subject {
     public void exchangeBook(User loggedUser, int chosenBook) {
         Book loggedUserBook = loggedUser.getBookExchangeRequest().get(chosenBook - 1);
         Book normalUserBook = loggedUser.getBookExchangeRequest().get(chosenBook);
-        int index;
 
         for (User normalUser : users) {
             if (normalUser.getBooks().contains(normalUserBook)) {
                 normalUserBook.setAvailable(false);
                 loggedUserBook.setAvailable(false);
-
-                while (loggedUser.getBookExchangeRequest().remove(loggedUserBook)) {
-                    index = loggedUser.getBookExchangeRequest().indexOf(loggedUserBook);
-
-                    loggedUser.getBookExchangeRequest().remove(index+1);
-                }
 
                 loggedUser.setLivros(normalUserBook);
                 removeBook(loggedUser, loggedUserBook);
@@ -116,10 +107,19 @@ public class Library implements ExchangeBooks, Subject {
             }
         }
 
-        System.out.println("Sua troca foi confirmada!\n");
+        System.out.println("Sua troca de livro foi confirmada!\n");
     }
 
     public void removeBook(User user, Book book) {
+        int index;
+
+        if (user.isSignIn()) {
+            while (user.getBookExchangeRequest().remove(book)) {
+                index = user.getBookExchangeRequest().indexOf(book);
+
+                user.getBookExchangeRequest().remove(index + 1);
+            }
+        }
         user.getBooks().remove(book);
     }
 
