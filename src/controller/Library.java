@@ -73,17 +73,12 @@ public class Library implements ExchangeBooks, Subject {
     }
 
     public void showRequestExchanges(User normalUser) {
-        int count = 0;
-        for (int i = 0; i < normalUser.getBookExchangeRequest().size(); i++) {
-            count = i;
-
-            if (i % 2 == 0) {
-                System.out.print((count + 1) + ". ");
-                System.out.print(normalUser.getBookExchangeRequest().get(i).getTitle());
-            } else {
-                System.out.print("<->");
-                System.out.println(normalUser.getBookExchangeRequest().get(i).getTitle());
-
+        for (int i = 0; i < normalUser.getBookExchangeRequest().size(); i += 2) {
+            System.out.print((i / 2 + 1) + ". ");
+            System.out.print(normalUser.getBookExchangeRequest().get(i).getTitle());
+            if (i + 1 < normalUser.getBookExchangeRequest().size()) {
+                System.out.print(" <-> ");
+                System.out.println(normalUser.getBookExchangeRequest().get(i + 1).getTitle());
             }
         }
     }
