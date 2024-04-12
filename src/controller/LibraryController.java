@@ -34,7 +34,7 @@ public class LibraryController implements ExchangeBooks, Subject {
         return null;
     }
 
-    public void requestExchange(Library library, int idNormalUserBook, int idLoggedUserBook, User usuarioLogged) {
+    public void requestExchange(Library library, int idNormalUserBook, int idLoggedUserBook, User loggedUser) {
         Book normalUserBook = searchBook(library, idNormalUserBook);
         if (normalUserBook == null) {
             System.out.println("\nlivro não encontrado!\n");
@@ -51,14 +51,14 @@ public class LibraryController implements ExchangeBooks, Subject {
 
         for (User normalUser : library.getUsers()) {
             if (normalUser.getBooks().contains(normalUserBook)) {
-                normalUser.update(
-                        usuarioLogged.getName() + " deseja trocar o livro " + loggedUserBook.getTitle()
+                notifyObserver(normalUser,
+                        loggedUser.getName() + " deseja trocar o livro " + loggedUserBook.getTitle()
                                 + " com o seu livro " + normalUserBook.getTitle());
 
                 normalUser.setLibraryBooks(normalUserBook);
                 normalUser.setLibraryBooks(loggedUserBook);
 
-                notifyObserver(normalUser, "\nSua mensagem de solicitação foi enviada para " + normalUser.getName()
+                System.out.println("\nSua mensagem de solicitação foi enviada para " + normalUser.getName()
                         + ". Aguarde pela confirmação!\n");
 
                 break;

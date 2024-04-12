@@ -86,12 +86,6 @@ public class User implements Observer {
         this.bookExchangeRequest.add(libraryBook);
     }
 
-    /* 
-    public void setMailbox(String message) {
-        this.mailbox.add(message);
-    } 
-    */
-
     @Override
     public void update(String message) {
         this.mailbox.add(message);

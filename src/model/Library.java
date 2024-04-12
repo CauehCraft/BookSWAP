@@ -27,4 +27,12 @@ public class Library {
     public void setObservers(ArrayList<Observer> observers) {
         this.observers = observers;
     }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "users=" + users +
+                ", observers=" + observers +
+                '}';
+    }
 }
