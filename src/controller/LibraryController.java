@@ -1,11 +1,11 @@
 package controller;
 
-import model.Book;
-import model.Library;
-import model.User;
 import controller.interfaces.ExchangeBooks;
 import controller.interfaces.Observer;
 import controller.interfaces.Subject;
+import model.Book;
+import model.Library;
+import model.User;
 
 public class LibraryController implements ExchangeBooks, Subject {
     public void showAvailableBooks(Library library, User loggedUser) {
@@ -112,14 +112,17 @@ public class LibraryController implements ExchangeBooks, Subject {
         user.getBooks().remove(book);
     }
 
+    @Override
     public void registerObserver(Library library, Observer observer) {
         library.getObservers().add(observer);
     }
 
+    @Override
     public void removeObserver(Library library, Observer observer) {
         library.getObservers().remove(observer);
     }
 
+    @Override
     public void notifyObserver(Observer observer, String message) {
         observer.update(message);
     }
