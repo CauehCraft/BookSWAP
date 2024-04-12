@@ -3,8 +3,8 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import controller.Library;
-import controller.User;
+import model.Library;
+import model.User;
 
 public class LoginSignUp {
     public static void displayLoginSignUp(Scanner input, ArrayList<User> users, Library library) {
@@ -32,7 +32,7 @@ public class LoginSignUp {
                     if (areThereUser(email, password, users)) {
                         System.out.println("\nusuário encontrado! Entrando no programa...\n");
                         BookSwap.loggedUser.setSignIn(true);
-                        library.registerObserver(BookSwap.loggedUser);
+                        BookSwap.libraryController.registerObserver(library, BookSwap.loggedUser);
 
                         return;
                     } else {

@@ -3,11 +3,13 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import controller.Library;
-import controller.Book;
-import controller.User;
+import controller.LibraryController;
+import model.Library;
+import model.Book;
+import model.User;
 
 public class BookSwap {
+    public static LibraryController libraryController = new LibraryController();
     public static boolean exitProgram = false;
     public static User loggedUser;
     public static int idBook = 0;

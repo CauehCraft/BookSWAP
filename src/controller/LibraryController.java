@@ -1,25 +1,19 @@
 package controller;
 
+import model.Book;
+import model.Library;
+import model.User;
 import controller.interfaces.ExchangeBooks;
 import controller.interfaces.Observer;
 import controller.interfaces.Subject;
 
-import java.util.ArrayList;
-
-public class Library implements ExchangeBooks, Subject {
-    private final ArrayList<User> users;
-    private final ArrayList<Observer> observers = new ArrayList<>();
-
-    public Library(ArrayList<User> users) {
-        this.users = users;
-    }
-
-    public void showAvailableBooks(User loggedUser) {
-        for (User user : users) {
+public class LibraryController implements ExchangeBooks, Subject {
+    public void showAvailableBooks(Library library, User loggedUser) {
+        for (User user : library.getUsers()) {
             if (!user.getName().equals(loggedUser.getName())) {
-                for (Book livro : user.getBooks()) {
-                    if (livro.isAvailable()) {
-                        System.out.println(livro);
+                for (Book book : user.getBooks()) {
+                    if (book.isAvailable()) {
+                        System.out.println(book);
                     }
                 }
 
@@ -28,8 +22,8 @@ public class Library implements ExchangeBooks, Subject {
         }
     }
 
-    public Book searchBook(int id) {
-        for (User user : users) {
+    public Book searchBook(Library library, int id) {
+        for (User user : library.getUsers()) {
             for (Book book : user.getBooks()) {
                 if (book.getId() == id) {
                     return book;
@@ -40,22 +34,22 @@ public class Library implements ExchangeBooks, Subject {
         return null;
     }
 
-    public void requestExchange(int idNormalUserBook, int idLoggedUserBook, User usuarioLogged) {
-        Book normalUserBook = searchBook(idNormalUserBook);
+    public void requestExchange(Library library, int idNormalUserBook, int idLoggedUserBook, User usuarioLogged) {
+        Book normalUserBook = searchBook(library, idNormalUserBook);
         if (normalUserBook == null) {
             System.out.println("\nlivro não encontrado!\n");
 
             return;
         }
 
-        Book loggedUserBook = searchBook(idLoggedUserBook);
+        Book loggedUserBook = searchBook(library, idLoggedUserBook);
         if (loggedUserBook == null) {
             System.out.println("\nVocê não possui este livro!\n");
 
             return;
         }
 
-        for (User normalUser : users) {
+        for (User normalUser : library.getUsers()) {
             if (normalUser.getBooks().contains(normalUserBook)) {
                 normalUser.update(
                         usuarioLogged.getName() + " deseja trocar o livro " + loggedUserBook.getTitle()
@@ -83,11 +77,11 @@ public class Library implements ExchangeBooks, Subject {
         }
     }
 
-    public void exchangeBook(User loggedUser, int chosenBook) {
+    public void exchangeBook(Library library, User loggedUser, int chosenBook) {
         Book loggedUserBook = loggedUser.getBookExchangeRequest().get(chosenBook - 1);
         Book normalUserBook = loggedUser.getBookExchangeRequest().get(chosenBook);
 
-        for (User normalUser : users) {
+        for (User normalUser : library.getUsers()) {
             if (normalUser.getBooks().contains(normalUserBook)) {
                 normalUserBook.setAvailable(false);
                 loggedUserBook.setAvailable(false);
@@ -118,19 +112,15 @@ public class Library implements ExchangeBooks, Subject {
         user.getBooks().remove(book);
     }
 
-    @Override
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
+    public void registerObserver(Library library, Observer observer) {
+        library.getObservers().add(observer);
     }
 
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
+    public void removeObserver(Library library, Observer observer) {
+        library.getObservers().remove(observer);
     }
 
-    @Override
     public void notifyObserver(Observer observer, String message) {
         observer.update(message);
     }
-
 }

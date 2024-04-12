@@ -2,9 +2,9 @@ package view;
 
 import java.util.Scanner;
 
-import controller.Library;
-import controller.Book;
-import controller.User;
+import model.Library;
+import model.Book;
+import model.User;
 
 public class Menu {
     public static void displayMenu(Scanner input, User loggedUser, Library library) {
@@ -31,7 +31,7 @@ public class Menu {
             switch (menuAction) {
                 case 1:
                     System.out.println("\nlistando livros da biblioteca...");
-                    library.showAvailableBooks(loggedUser);
+                    BookSwap.libraryController.showAvailableBooks(library, loggedUser);
 
                     break;
 
@@ -50,7 +50,7 @@ public class Menu {
                     System.out.print("informe o id do seu livro a ser trocado: ");
                     idLoggedUserBook = Integer.parseInt(input.nextLine());
 
-                    library.requestExchange(idNormalUserBook, idLoggedUserBook, loggedUser);
+                    BookSwap.libraryController.requestExchange(library, idNormalUserBook, idLoggedUserBook, loggedUser);
 
                     break;
 
@@ -106,12 +106,12 @@ public class Menu {
                         break;
                     }
                     System.out.println();
-                    library.showRequestExchanges(loggedUser);
+                    BookSwap.libraryController.showRequestExchanges(loggedUser);
                     System.out.print("\nselecione sua opção de troca: ");
 
                     option = Integer.parseInt(input.nextLine());
 
-                    library.exchangeBook(loggedUser, option);
+                    BookSwap.libraryController.exchangeBook(library, loggedUser, option);
 
                     break;
 

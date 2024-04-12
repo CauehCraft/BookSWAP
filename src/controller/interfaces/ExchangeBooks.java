@@ -1,14 +1,15 @@
 package controller.interfaces;
 
-import controller.Book;
-import controller.User;
+import model.Book;
+import model.Library;
+import model.User;
 
 public interface ExchangeBooks {
-    public void requestExchange(int idNormalUserBook, int idLoggedUserBook, User usuarioLogged);
+    public void requestExchange(Library library, int idNormalUserBook, int idLoggedUserBook, User usuarioLogged);
 
     public void showRequestExchanges(User normalUser);
 
-    public void exchangeBook(User usuarioLogged, int option);
+    public void exchangeBook(Library library, User loggedUser, int chosenBook);
 
     public void removeBook(User user, Book book);
 }
