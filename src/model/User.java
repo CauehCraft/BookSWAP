@@ -26,10 +26,6 @@ public class User implements Observer {
         mailbox = new ArrayList<>();
     }
 
-    public ArrayList<String> getMailbox() {
-        return mailbox;
-    }
-
     public int getId() {
         return id;
     }
@@ -74,16 +70,24 @@ public class User implements Observer {
         return books;
     }
 
-    public void setLivros(Book book) {
-        this.books.add(book);
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
     }
 
     public ArrayList<Book> getBookExchangeRequest() {
         return bookExchangeRequest;
     }
 
-    public void setLibraryBooks(Book libraryBook) {
-        this.bookExchangeRequest.add(libraryBook);
+    public void setBookExchangeRequest(ArrayList<Book> bookExchangeRequest) {
+        this.bookExchangeRequest = bookExchangeRequest;
+    }
+
+    public ArrayList<String> getMailbox() {
+        return mailbox;
+    }
+
+    public void setMailbox(ArrayList<String> mailbox) {
+        this.mailbox = mailbox;
     }
 
     @Override
