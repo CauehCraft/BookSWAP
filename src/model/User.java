@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-import controller.interfaces.Observer;
+import controller.observer.Observer;
 
 public class User implements Observer {
     private int id;

@@ -1,4 +1,4 @@
-package controller.interfaces;
+package controller.observer;
 
 import model.Library;
 

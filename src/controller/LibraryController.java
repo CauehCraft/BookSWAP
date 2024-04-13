@@ -1,14 +1,13 @@
 package controller;
 
-import controller.interfaces.ExchangeBooks;
-import controller.interfaces.Observer;
-import controller.interfaces.Subject;
+import controller.observer.Observer;
+import controller.observer.Subject;
 import model.Book;
 import model.Library;
 import model.User;
 import view.BookSwap;
 
-public class LibraryController implements ExchangeBooks, Subject {
+public class LibraryController implements Subject {
     public void showAvailableBooks(Library library, User loggedUser) {
         for (User user : library.getUsers()) {
             if (!user.getName().equals(loggedUser.getName())) {

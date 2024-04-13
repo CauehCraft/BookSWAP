@@ -1,6 +1,6 @@
 package model;
 
-import controller.interfaces.Observer;
+import controller.observer.Observer;
 
 import java.util.ArrayList;
 
