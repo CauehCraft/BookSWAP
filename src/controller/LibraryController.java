@@ -78,25 +78,31 @@ public class LibraryController implements Subject {
     }
 
     public void exchangeBook(Library library, User loggedUser, int chosenBook) {
-        Book loggedUserBook = loggedUser.getBookExchangeRequest().get(chosenBook - 1);
-        Book normalUserBook = loggedUser.getBookExchangeRequest().get(chosenBook);
+        try {
+            Book loggedUserBook = loggedUser.getBookExchangeRequest().get(chosenBook - 1);
+            Book normalUserBook = loggedUser.getBookExchangeRequest().get(chosenBook);
 
-        for (User normalUser : library.getUsers()) {
-            if (normalUser.getBooks().contains(normalUserBook)) {
-                normalUserBook.setAvailable(false);
-                loggedUserBook.setAvailable(false);
+            for (User normalUser : library.getUsers()) {
+                if (normalUser.getBooks().contains(normalUserBook)) {
+                    normalUserBook.setAvailable(false);
+                    loggedUserBook.setAvailable(false);
 
-                BookSwap.userController.addBook(loggedUser, normalUserBook);
-                removeBook(loggedUser, loggedUserBook);
+                    BookSwap.userController.addBook(loggedUser, normalUserBook);
+                    removeBook(loggedUser, loggedUserBook);
 
-                BookSwap.userController.addBook(normalUser, loggedUserBook);
-                removeBook(normalUser, normalUserBook);
+                    BookSwap.userController.addBook(normalUser, loggedUserBook);
+                    removeBook(normalUser, normalUserBook);
 
-                break;
+                    break;
+                }
             }
-        }
 
-        System.out.println("Sua troca de livro foi confirmada!\n");
+            System.out.println("\nSua troca de livro foi confirmada!\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\nopção inválida!\n");
+        } catch (NumberFormatException e) {
+            System.out.println("\nformato de entrada inválido!\n");
+        }
     }
 
     public void removeBook(User user, Book book) {
