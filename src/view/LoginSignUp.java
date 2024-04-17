@@ -1,10 +1,10 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import model.Library;
 import model.User;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LoginSignUp {
     public static void displayLoginSignUp(Scanner input, ArrayList<User> users, Library library) {
@@ -53,6 +53,13 @@ public class LoginSignUp {
                         System.out.print("Informe seu email: ");
                         email = input.nextLine();
 
+                        if (areThereEmail(email, users)) {
+                            System.out.println("\nEmail já existente!\n");
+
+                            break;
+                        }
+
+
                         System.out.print("Informe sua senha: ");
                         password = input.nextLine();
 
@@ -88,6 +95,14 @@ public class LoginSignUp {
 
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public static boolean areThereEmail(String email, ArrayList<User> users) {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) return true;
         }
 
         return false;

@@ -1,0 +1,111 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Book {
+  + Book(int, String, String, int): 
+  - author: String
+  - id: int
+  - edition: int
+  - title: String
+  - available: boolean
+  + setId(int): void
+  + getAuthor(): String
+  + setAuthor(String): void
+  + getTitle(): String
+  + getEdition(): int
+  + setTitle(String): void
+  + getId(): int
+  + setEdition(int): void
+  + setAvailable(boolean): void
+  + toString(): String
+  + isAvailable(): boolean
+}
+class BookSwap {
+  + BookSwap(): 
+  + userController: UserController
+  + exitProgram: boolean
+  + libraryController: LibraryController
+  + loggedUser: User
+  + idBook: int
+  + main(String[]): void
+}
+class Library {
+  + Library(ArrayList<User>): 
+  - observers: ArrayList<Observer>
+  - users: ArrayList<User>
+  + setUsers(ArrayList<User>): void
+  + getUsers(): ArrayList<User>
+  + getObservers(): ArrayList<Observer>
+  + toString(): String
+  + setObservers(ArrayList<Observer>): void
+}
+class LibraryController {
+  + LibraryController(): 
+  + showAvailableBooks(Library, User): void
+  + searchBook(Library, int): Book
+  + exchangeBook(Library, User, int): void
+  + removeObserver(Library, Observer): void
+  + removeBook(User, Book): void
+  + registerObserver(Library, Observer): void
+  + notifyObserver(Observer, String): void
+  + showRequestExchanges(User): void
+  + requestExchange(Library, int, int, User): void
+}
+class LoginSignUp {
+  + LoginSignUp(): 
+  + displayLoginSignUp(Scanner, ArrayList<User>, Library): void
+  + areThereUser(String, String, ArrayList<User>): boolean
+}
+class Menu {
+  + Menu(): 
+  + displayMenu(Scanner, User, Library): void
+}
+interface Observer << interface >> {
+  + update(String): void
+}
+interface Subject << interface >> {
+  + notifyObserver(Observer, String): void
+  + removeObserver(Library, Observer): void
+  + registerObserver(Library, Observer): void
+}
+class User {
+  + User(int, String, String, String): 
+  - name: String
+  - books: ArrayList<Book>
+  - email: String
+  - id: int
+  - bookExchangeRequest: ArrayList<Book>
+  - signIn: boolean
+  - password: String
+  - mailbox: ArrayList<String>
+  + setMailbox(ArrayList<String>): void
+  + setName(String): void
+  + getPassword(): String
+  + toString(): String
+  + setId(int): void
+  + getName(): String
+  + setEmail(String): void
+  + getBookExchangeRequest(): ArrayList<Book>
+  + setSignIn(boolean): void
+  + getMailbox(): ArrayList<String>
+  + getBooks(): ArrayList<Book>
+  + setBooks(ArrayList<Book>): void
+  + isSignIn(): boolean
+  + getId(): int
+  + getEmail(): String
+  + setPassword(String): void
+  + update(String): void
+  + setBookExchangeRequest(ArrayList<Book>): void
+}
+class UserController {
+  + UserController(): 
+  + addBook(User, Book): void
+  + addLibraryBook(User, Book): void
+}
+
+LibraryController  -[#008200,dashed]-^  Subject           
+User               -[#008200,dashed]-^  Observer          
+@enduml
