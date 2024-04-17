@@ -11,11 +11,7 @@ public class LibraryController implements Subject {
     public void showAvailableBooks(Library library, User loggedUser) {
         for (User user : library.getUsers()) {
             if (!user.getName().equals(loggedUser.getName())) {
-                for (Book book : user.getBooks()) {
-                    if (book.isAvailable()) {
-                        System.out.println(book);
-                    }
-                }
+                user.getBooks().stream().filter(Book::isAvailable).forEach(System.out::println);
 
                 System.out.println();
             }

@@ -5,6 +5,8 @@ import model.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
 
 public class LoginSignUp {
     public static void displayLoginSignUp(Scanner input, ArrayList<User> users, Library library) {
@@ -25,8 +27,10 @@ public class LoginSignUp {
                     case 1:
                         System.out.println("\nfazendo loggin...");
 
-                        System.out.print("Informe seu email: ");
-                        email = input.nextLine();
+                        //aqui
+                        //System.out.print("Informe seu email: ");
+                        email = getEmailFromUser(input);
+                        //fim
                         System.out.print("Informe sua senha: ");
                         password = input.nextLine();
 
@@ -47,11 +51,11 @@ public class LoginSignUp {
 
                         String name;
 
-                        System.out.print("Informe seu nome: ");
-                        name = input.nextLine();
+                        //System.out.print("Informe seu nome: ");
+                        name = getNomeFromUser(input);
 
-                        System.out.print("Informe seu email: ");
-                        email = input.nextLine();
+                        //System.out.print("Informe seu email: ");
+                        email = getEmailFromUser(input); //.nextLine();
 
                         if (areThereEmail(email, users)) {
                             System.out.println("\nEmail já existente!\n");
@@ -100,6 +104,34 @@ public class LoginSignUp {
         return false;
     }
 
+    public static String getNomeFromUser(Scanner scanner) {
+        String nomePattern = "^[\\p{L} '-]+$";
+        String nome;
+        while (true) {
+            System.out.print("Por favor, digite seu nome: ");
+            nome = scanner.nextLine();
+            if (nome.matches(nomePattern)) {
+                return nome;
+            } else {
+                System.out.println("\nNome inválido. Tente novamente.\n");
+            }
+        }
+    }
+
+
+    public static String getEmailFromUser(Scanner scanner) {
+        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        String email;
+        while (true) {
+            System.out.print("Por favor, digite um email: ");
+            email = scanner.nextLine();
+            if (Pattern.matches(emailPattern, email)) {
+                return email;
+            } else {
+                System.out.println("\nEmail inválido. Tente novamente.\n");
+            }
+        }
+    }
     public static boolean areThereEmail(String email, ArrayList<User> users) {
         for (User user : users) {
             if (user.getEmail().equals(email)) return true;
